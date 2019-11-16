@@ -6,13 +6,13 @@ import '@applitools/eyes-cypress/commands'
 
 
 
-describe.only('App V1',()=>
+describe('App V1',()=>
 {
     
     
     it('Login Page UI Elements Test',()=>
     { 
-        cy.eyesOpen({appName:'V1'})
+        cy.eyesOpen({appName:'Hackathon'})
         loginPage.GoTo_V1()
        cy.eyesCheckWindow('login page')
        cy.eyesClose()
@@ -21,7 +21,7 @@ describe.only('App V1',()=>
     })
     it('Data-Driven Test, a.click the login button without entering any data',()=>
     {
-        cy.eyesOpen({appName:'V1'})
+        cy.eyesOpen({appName:'Hackathon'})
         
         loginPage.GoTo_V1()
         //If you don’t enter the username and password and click the login button, it should throw an error
@@ -53,7 +53,7 @@ describe.only('App V1',()=>
 
     it('Table Sort Test',()=>
     {
-        cy.eyesOpen({appName:'V1'})
+        cy.eyesOpen({appName:'Hackathon'})
         loginPage.GoTo_V1()
         loginPage.login()
         cy.eyesCheckWindow('Table Before sort')
@@ -73,67 +73,74 @@ describe.only('App V1',()=>
     })
     it('Canvas Chart Test',()=>
     {
+        
         const red_data = [10,20,30,40,50,60,70]
         const blue_data = [8,9,-10,10,40,60,40]
         const yellow_data= [5,10,15,20,25,30,35]
+        cy.eyesOpen({appName:'Hackathon'})
         loginPage.GoTo_V1()
         loginPage.login()
-        cy.get(mainPage.compareExpenses).click()
-        .then(()=>{
-            cy.wait(100)
-            .then(()=>
-            {
-            cy.window().its('barChartData').its('datasets')
-            .should('have.length',2).its('0').its('data')
-            .should('have.members',red_data)
-            .each((redbar,index)=>{console.log(redbar == red_data[index])}).should('have.length',7)
+        cy.eyesCheckWindow('Canvas chart Test before click on compare expenses')
+        cy.get(mainPage.compareExpenses).click().wait(2000)
+        cy.eyesCheckWindow('Canvas chart Test After click on compare expenses')
+    //     .then(()=>{
+    //         cy.wait(100)
+    //         .then(()=>
+    //         {
+    //         cy.window().its('barChartData').its('datasets')
+    //         .should('have.length',2).its('0').its('data')
+    //         .should('have.members',red_data)
+    //         .each((redbar,index)=>{console.log(redbar == red_data[index])}).should('have.length',7)
 
 
-            cy.window().its('barChartData').its('datasets')
-            .should('have.length',2).its('1').its('data').should('have.members',blue_data,blue_data).should('have.length',7).each((bluebar,index)=>
-            {console.log(bluebar == blue_data[index])})})
-       })
-       cy.get(mainPage.showDataForNextYear_btn).click()
-       .then(()=>{
+    //         cy.window().its('barChartData').its('datasets')
+    //         .should('have.length',2).its('1').its('data').should('have.members',blue_data,blue_data).should('have.length',7).each((bluebar,index)=>
+    //         {console.log(bluebar == blue_data[index])})})
+    //    })
+       cy.get(mainPage.showDataForNextYear_btn).click().wait(2000)
+       cy.eyesCheckWindow('Canvas chart Test After click on showDataforNextYear')
+    //    .then(()=>{
        
         
-        cy.window().its('barChartData').its('datasets')
-        .should('have.length',3).its('0').its('data')
-        .should('have.members',red_data)
+    //     cy.window().its('barChartData').its('datasets')
+    //     .should('have.length',3).its('0').its('data')
+    //     .should('have.members',red_data)
 
-        cy.window().its('barChartData').its('datasets')
-        .should('have.length',3).its('1').its('data')
-        .should('have.members',blue_data)
+    //     cy.window().its('barChartData').its('datasets')
+    //     .should('have.length',3).its('1').its('data')
+    //     .should('have.members',blue_data)
 
-        cy.window().its('barChartData').its('datasets')
-        .should('have.length',3).its('2').its('data')
-        .should('have.members',yellow_data)
-        cy.window().its('barChartData').its('datasets')
-        .should('have.length',3).its('2').its('label').should('equal',2019)
+    //     cy.window().its('barChartData').its('datasets')
+    //     .should('have.length',3).its('2').its('data')
+    //     .should('have.members',yellow_data)
+    //     cy.window().its('barChartData').its('datasets')
+    //     .should('have.length',3).its('2').its('label').should('equal',2019)
         
-        })
-        
+    //     })
+        cy.eyesClose()
  
     })
     it('DynamicContent Test',()=>
     {
+        cy.eyesOpen({appName:'Hackathon'})
         cy.visit('https://demo.applitools.com/hackathon.html?showAd=true')
+        cy.eyesCheckWindow('Dynamic Content test before Login')
         loginPage.login()
-        cy.get('img[src="img/flashSale.gif"]').should('be.visible').should('exist')
-        cy.get('img[src="img/flashSale2.gif"]').should('be.visible').should('exist')
-
+        cy.wait(2000)
+        cy.eyesCheckWindow('Dynamic Content test After Login')
+        cy.eyesClose()
         
 
     })
 })
-describe('App V2',()=>
+describe.only('App V2',()=>
 {
     
     
     it('Login Page UI Elements Test',()=>
     { 
         
-        cy.eyesOpen({appName:'V1'})
+        cy.eyesOpen({appName:'Hackathon'})
         loginPage.GoTo_V2()
        cy.eyesCheckWindow('login page')
        cy.eyesClose()
@@ -142,7 +149,7 @@ describe('App V2',()=>
     })
     it('Data-Driven Test, a.click the login button without entering any data',()=>
     {
-        cy.eyesOpen({appName:'V1'})
+        cy.eyesOpen({appName:'Hackathon'})
         
         loginPage.GoTo_V2()
         //If you don’t enter the username and password and click the login button, it should throw an error
@@ -174,12 +181,12 @@ describe('App V2',()=>
 
     it('Table Sort Test',()=>
     {
-        cy.eyesOpen({appName:'V1'})
+        cy.eyesOpen({appName:'Hackathon'})
         loginPage.GoTo_V2()
         loginPage.login()
-        cy.eyesCheckWindow('Table Before sort')
-        cy.get('div[class="logo-label"]').should('contain.text',"ACME")
-        cy.get(mainPage.recentTransactionsTable.amountTitle).click()
+        cy.eyesCheckWindow('Table Before sort MainPage')
+      //  cy.get('div[class="logo-label"]').should('contain.text',"ACME")
+        cy.get(mainPage.recentTransactionsTable.amountTitle).click().wait(2000)
         cy.eyesCheckWindow('Table after sort')
         // //check by description that the image appear in the first place
         // cy.get('table[id="transactionsTable"] >tbody > tr >td >img').eq(0).should('have.attr','src','img/company3.png')
@@ -197,51 +204,64 @@ describe('App V2',()=>
         const red_data = [10,20,30,40,50,60,70]
         const blue_data = [8,9,-10,10,40,60,40]
         const yellow_data= [5,10,15,20,25,30,35]
+        cy.eyesOpen({appName:'Hackathon'})
+        
+        
         loginPage.GoTo_V2()
         loginPage.login()
-        cy.get(mainPage.compareExpenses).click()
-        .then(()=>{
-            cy.wait(100)
-            .then(()=>
-            {
-            cy.window().its('barChartData').its('datasets')
-            .should('have.length',2).its('0').its('data')
-            .should('have.members',red_data)
-            .each((redbar,index)=>{console.log(redbar == red_data[index])}).should('have.length',7)
+        cy.eyesCheckWindow('Canvas chart Test before click on compare expenses')
+        cy.get(mainPage.compareExpenses).click().wait(2000)
+        cy.eyesCheckWindow('Canvas chart Test After click on compare expenses')
+    //     .then(()=>{
+    //         cy.wait(100)
+    //         .then(()=>
+    //         {
+    //         cy.window().its('barChartData').its('datasets')
+    //         .should('have.length',2).its('0').its('data')
+    //         .should('have.members',red_data)
+    //         .each((redbar,index)=>{console.log(redbar == red_data[index])}).should('have.length',7)
 
 
-            cy.window().its('barChartData').its('datasets')
-            .should('have.length',2).its('1').its('data').should('have.members',blue_data,blue_data).should('have.length',7).each((bluebar,index)=>
-            {console.log(bluebar == blue_data[index])})})
-       })
-       cy.get(mainPage.showDataForNextYear_btn).click()
-       .then(()=>{
+    //         cy.window().its('barChartData').its('datasets')
+    //         .should('have.length',2).its('1').its('data').should('have.members',blue_data,blue_data).should('have.length',7).each((bluebar,index)=>
+    //         {console.log(bluebar == blue_data[index])})})
+    //    })
+       cy.get(mainPage.showDataForNextYear_btn).click().wait(2000)
+       cy.eyesCheckWindow('Canvas chart Test After click on showDataforNextYear')
+    //    .then(()=>{
        
         
-        cy.window().its('barChartData').its('datasets')
-        .should('have.length',3).its('0').its('data')
-        .should('have.members',red_data)
+    //     cy.window().its('barChartData').its('datasets')
+    //     .should('have.length',3).its('0').its('data')
+    //     .should('have.members',red_data)
 
-        cy.window().its('barChartData').its('datasets')
-        .should('have.length',3).its('1').its('data')
-        .should('have.members',blue_data)
+    //     cy.window().its('barChartData').its('datasets')
+    //     .should('have.length',3).its('1').its('data')
+    //     .should('have.members',blue_data)
 
-        cy.window().its('barChartData').its('datasets')
-        .should('have.length',3).its('2').its('data')
-        .should('have.members',yellow_data)
-        cy.window().its('barChartData').its('datasets')
-        .should('have.length',3).its('2').its('label').should('equal',2019)
+    //     cy.window().its('barChartData').its('datasets')
+    //     .should('have.length',3).its('2').its('data')
+    //     .should('have.members',yellow_data)
+    //     cy.window().its('barChartData').its('datasets')
+    //     .should('have.length',3).its('2').its('label').should('equal',2019)
         
-        })
+    //     })
+    cy.eyesClose()
         
  
     })
     it('DynamicContent Test',()=>
     {
+        cy.eyesOpen({appName:'Hackathon'})
         cy.visit('https://demo.applitools.com/hackathonV2.html?showAd=true')
+        cy.eyesCheckWindow('Dynamic Content test before Login')
         loginPage.login()
-        cy.get('img[src="img/flashSale.gif"]').should('be.visible').should('exist')
-        cy.get('img[src="img/flashSale2.gif"]').should('be.visible').should('exist')
+        cy.wait(2000)
+        cy.eyesCheckWindow('Dynamic Content test After Login')
+        
+        // cy.get('img[src="img/flashSale.gif"]').should('be.visible').should('exist')
+        // cy.get('img[src="img/flashSale2.gif"]').should('be.visible').should('exist')
+        cy.eyesClose()
 
         
 
